@@ -1,0 +1,16 @@
+-----------------------------------------------------------------------------------------------------
+
+while (1)
+        pause();
+
+// let's talk about the pause function
+--> the pause funtion is a system call that simply stops/pauses the execution of a program
+until a signal arrives
+
+see this resaurce here -> https://www.gnu.org/software/libc/manual/html_node/Using-Pause.html
+as well as the manual page for pause.
+
+once it recieves a signal it either executes the handler function for this signal if there is once
+or it terminates the process, program
+
+-----------------------------------------------------------------------------------------------------
