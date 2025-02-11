@@ -1,18 +1,23 @@
 #include "minitalk.h"
 
-void    handler(int signum)
+void    s_talk_protocol(int signum)
 {
     if (signum == SIGUSR1)
-        printf("0\n");
+        ft_putstr_fd("0", 1);
     else if (signum == SIGUSR2)
-        printf("1\n");
+        ft_putstr_fd("1", 1);
 }
 
 
 int main(void)
 {
-    signal(SIGUSR1, handler);
-    signal(SIGUSR2, handler);
+    struct  sigaction sa;
+
+    
+    signal(SIGUSR1, s_talk_protocol);
+    signal(SIGUSR2, s_talk_protocol);
+
+    printf("function  ==> %p\n function address ==> %p\n", s_talk_protocol, &s_talk_protocol);
 
     int serv_pid;
     serv_pid = getpid();
