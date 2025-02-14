@@ -37,7 +37,7 @@ void    process_letter(char *letter, int srv_pid)
             kill(srv_pid, SIGUSR1);
         else if (letter[i] == '1')
             kill(srv_pid, SIGUSR2);
-        sleep(1);
+        usleep(700);
         i++;
     }
 }

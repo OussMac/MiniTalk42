@@ -1,6 +1,20 @@
 #include "minitalk.h"
 
-static void	ft_putchar_fd(char c, int fd)
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*ptr;
+	if (n == 0)
+		return ;
+	ptr = (unsigned char *) s;
+	while (i < n)
+	{
+		ptr[i] = 0;
+		i++;
+	}
+}
+
+void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
