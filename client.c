@@ -1,6 +1,8 @@
 #include "minitalk.h"
 
 
+bool    ack_signal = false;
+
 char *ecnrypt(unsigned char ascii)
 {
     char    *bits;
@@ -37,7 +39,9 @@ void    process_letter(char *letter, int srv_pid)
             kill(srv_pid, SIGUSR1);
         else if (letter[i] == '1')
             kill(srv_pid, SIGUSR2);
-        usleep(700);
+        while(ack_signal == true)
+            pause();
+        ack_signal = false;
         i++;
     }
 }
@@ -56,11 +60,24 @@ void    c_talk_protocol(char *str, int srv_pid)
         free(bits);
         i++;
     }
+    if (str[i] == '\0')
+    {
+        bits = ecnrypt(str[i]);
+        process_letter(bits, srv_pid);
+        free(bits);
+    }
+}
+
+void    ack_handler(int signum)
+{
+    // ack_signal = true;
+    puts("ack signal recieved");
 }
 
 int main(int ac, char *av[])
 {
     int srv_pid;
+    signal(SIGUSR1, ack_handler);
     if (ac == 3)
     {
         srv_pid = ft_atoi(av[1]);
