@@ -22,14 +22,15 @@ void    process_letter(int signum, siginfo_t *info, void *context)
     else if (signum == SIGUSR2)
         server.letter[server.i] = '1';
     kill(info->si_pid, SIGUSR1);
-    usleep(50);
     server.i++;
     if (server.i == 8)
     {
         server.letter[server.i] = '\0';
         c = decrypt(server.letter);
         if (c == '\0')
+        {
             ft_putchar_fd('\n', 1);
+        }
         else
             ft_putchar_fd(c, 1);
         ft_bzero(server.letter, 9);

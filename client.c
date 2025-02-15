@@ -1,5 +1,7 @@
 #include "minitalk.h"
 
+volatile sig_atomic_t ready = 0;
+
 // char *ecnrypt(unsigned char ascii)
 // {
 //     char    *bits;
@@ -60,8 +62,9 @@ void    process_letter(char *letter, int srv_pid)
         else if (letter[i] == '1')
             kill(srv_pid, SIGUSR2);
         i++;
-        usleep(50);
-        pause();
+        while(!ready)
+            pause();
+        ready = 0;
     }
 }
 
@@ -90,6 +93,7 @@ void    c_talk_protocol(char *str, int srv_pid)
 void    ack_handler(int signum)
 {
     (void)signum;
+    ready = 1;
 }
 
 int main(int ac, char *av[])
