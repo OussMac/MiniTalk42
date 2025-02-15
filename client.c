@@ -1,32 +1,52 @@
 #include "minitalk.h"
 
+// char *ecnrypt(unsigned char ascii)
+// {
+//     char    *bits;
+//     char    rev_bits[9];
+//     int     i;
+//     int     j;
 
-bool    ack_signal = false;
+//     bits = (char *) malloc (sizeof(char) * 9);
+//     i = 0;
+//     while (ascii > 0)
+//     {
+//         rev_bits[i++] = (ascii % 2) + 48;
+//         ascii /= 2;
+//     }
+//     while (i < 8)
+//         rev_bits[i++] = '0';
+//     j = 0;
+//     while (i > 0)
+//     {
+//         bits[j++] = rev_bits[--i];
+//     }
+//     bits[j] = '\0';
+//     return (bits);
+// }
+
+//new encrypt
 
 char *ecnrypt(unsigned char ascii)
 {
-    char    *bits;
-    char    rev_bits[8];
-    int     i;
-    int     j;
+    char *bits;
+    int i;
 
-    bits = (char *) malloc (sizeof(char) * 9);
-    i = 0;
-    while (ascii > 0)
+    bits = (char *)malloc(9 * sizeof(char));  // Allocate memory for 8 bits + '\0'
+    if (!bits)
+        return (NULL);
+
+    i = 7; // Start filling from the last bit (MSB)
+    while (i >= 0)
     {
-        rev_bits[i++] = (ascii % 2) + 48;
-        ascii /= 2;
+        bits[i] = (ascii & 1) + '0'; // Get the last bit and store it
+        ascii >>= 1;                 // Shift right to process the next bit
+        i--;
     }
-    while (i < 8)
-        rev_bits[i++] = '0';
-    j = 0;
-    while (i > 0)
-    {
-        bits[j++] = rev_bits[--i];
-    }
-    bits[j] = '\0';
+    bits[8] = '\0'; // Null-terminate the string
     return (bits);
 }
+
 
 void    process_letter(char *letter, int srv_pid)
 {
@@ -39,10 +59,9 @@ void    process_letter(char *letter, int srv_pid)
             kill(srv_pid, SIGUSR1);
         else if (letter[i] == '1')
             kill(srv_pid, SIGUSR2);
-        while(ack_signal == true)
-            pause();
-        ack_signal = false;
         i++;
+        usleep(50);
+        pause();
     }
 }
 
@@ -70,8 +89,7 @@ void    c_talk_protocol(char *str, int srv_pid)
 
 void    ack_handler(int signum)
 {
-    // ack_signal = true;
-    puts("ack signal recieved");
+    (void)signum;
 }
 
 int main(int ac, char *av[])

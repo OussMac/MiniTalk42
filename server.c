@@ -17,11 +17,12 @@ void    process_letter(int signum, siginfo_t *info, void *context)
     (void)context;
     (void)info;
 
-    kill(info->si_pid, SIGUSR1);
     if (signum == SIGUSR1)
         server.letter[server.i] = '0';
     else if (signum == SIGUSR2)
         server.letter[server.i] = '1';
+    kill(info->si_pid, SIGUSR1);
+    usleep(50);
     server.i++;
     if (server.i == 8)
     {

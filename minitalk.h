@@ -4,7 +4,6 @@
 # include <unistd.h> // for pause function.
 # include <signal.h> // for sigaction and signal handling.
 # include <stdlib.h> // for constants like EXIT_FAILURE / EXIT_SUCCESS.
-# include <stdbool.h> // for boolean flags
 
 // string to integer.
 long ft_atoi(const char *str);
