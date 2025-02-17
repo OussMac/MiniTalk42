@@ -17,8 +17,8 @@ void    decrypt(int signum, siginfo_t *info, void *context)
     c <<= 1;
     if (signum == SIGUSR2)
         c |= 1;
-    kill(info->si_pid, SIGUSR1);
     usleep(42);
+    kill(info->si_pid, SIGUSR1);
     i++;
     if (i == 8)
     {
