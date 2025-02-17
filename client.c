@@ -1,24 +1,26 @@
 #include "minitalk.h"
 
-
-
-
-
 volatile sig_atomic_t ready = 0;
 
-void encrypt(int s_pid, unsigned char letter) // A --> 65 --> 0100 0001 --> 1000 0010
+void    ft_encrypt(int s_pid, char letter) // A --> 65 --> 0100 0001 --> 1000 0010
 {
-    int i;
-    unsigned char c;
+    int     i;
+    char    c;
+    int     failure;
 
     i = 7;
     while (i >= 0)
     {
         c = letter >> i;
         if (c & 1)
-            kill(s_pid, SIGUSR2);
+            failure = kill(s_pid, SIGUSR2);
         else
-            kill(s_pid, SIGUSR1);
+            failure = kill(s_pid, SIGUSR1);
+        if (failure == -1)
+        {
+            ft_putstr_fd(" Failed Sending Signal.\n", STDERR_FILENO);
+            exit(EXIT_FAILURE);
+        }
         while (!ready)
             pause();
         ready = 0;
@@ -26,15 +28,11 @@ void encrypt(int s_pid, unsigned char letter) // A --> 65 --> 0100 0001 --> 1000
     }
 }
 
-
 void    ack_handler(int signum)
 {
-    (void)signum;
-    ready = 1;
+    if (signum == SIGUSR1)
+        ready = 1;
 }
-
-
-
 
 
 int main(int argc, char *argv[])
@@ -54,10 +52,10 @@ int main(int argc, char *argv[])
         s_pid = ft_atoi(argv[1]);
         while(argv[2][i])
         {
-            encrypt(s_pid, argv[2][i]);
+            ft_encrypt(s_pid, argv[2][i]);
             i++;
         }
-        encrypt(s_pid, argv[2][i]);
+        ft_encrypt(s_pid, argv[2][i]);
     }
     return (EXIT_SUCCESS);
 }
