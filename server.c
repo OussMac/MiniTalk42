@@ -1,6 +1,6 @@
 #include "minitalk.h"
 
-pid_t old_pid;
+int old_pid;
 
 void    ft_decrypt(int signum, siginfo_t *info, void *context)
 {
@@ -27,6 +27,7 @@ void    ft_decrypt(int signum, siginfo_t *info, void *context)
         c = 0;
         i = 0;
     }
+    usleep(37);
     kill(info->si_pid, SIGUSR1);
 }
 
@@ -39,7 +40,6 @@ void    server_info(void)
     ft_putnbr_fd(serv_pid, STDOUT_FILENO);
     ft_putstr_fd(" ].\n", STDOUT_FILENO);
 }
-
 
 int main(int argc, char *argv[])
 {

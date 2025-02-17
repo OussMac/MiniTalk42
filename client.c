@@ -22,7 +22,7 @@ void    ft_encrypt(int s_pid, char letter) // A --> 65 --> 0100 0001 --> 1000 00
             exit(EXIT_FAILURE);
         }
         while (!ready)
-            pause();
+            usleep(1);
         ready = 0;
         i--;
     }
@@ -33,7 +33,6 @@ void    ack_handler(int signum)
     if (signum == SIGUSR1)
         ready = 1;
 }
-
 
 int main(int argc, char *argv[])
 {
