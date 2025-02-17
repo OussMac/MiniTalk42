@@ -1,18 +1,16 @@
-#include "minitalk.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oimzilen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/17 17:40:28 by oimzilen          #+#    #+#             */
+/*   Updated: 2025/02/17 17:40:31 by oimzilen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*ptr;
-	if (n == 0)
-		return ;
-	ptr = (unsigned char *) s;
-	while (i < n)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-}
+#include "minitalk.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
@@ -58,7 +56,7 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 }
 
-long ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int		i;
 	long	pow;
