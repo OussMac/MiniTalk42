@@ -16,8 +16,10 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 long	ft_atoi(const char *str);
+bool	pid_is_digit(char *str);
 
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);

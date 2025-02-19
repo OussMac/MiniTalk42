@@ -40,12 +40,20 @@ void	ft_encrypt(int s_pid, char letter)
 	}
 }
 
+void	done_handler(int signum)
+{
+	if (signum == SIGUSR2)
+	{
+		ft_putstr_fd("Message Sent!\n", STDOUT_FILENO);
+		exit(EXIT_SUCCESS);
+	}
+}
+
 void	ack_handler(int signum)
 {
 	if (signum == SIGUSR1)
 		g_ready = 1;
 }
-#include <stdio.h>
 
 int	main(int argc, char *argv[])
 {
@@ -53,27 +61,23 @@ int	main(int argc, char *argv[])
 	int	s_pid;
 
 	signal(SIGUSR1, ack_handler);
+	signal(SIGUSR2, done_handler);
 	if (argc != 3)
 	{
-		ft_putstr_fd("Usage : ./client <server-pid>  <message> \n", 1);
+		ft_putstr_fd("Usage : ./client <server-pid>  <message> \n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	else
 	{
-		// for debbuggin printing raw bytes
-
-		printf("Debuggin: raw bytes in hexadecimal: ");
-		for (i = 0; argv[2][i] != '\0'; i++)
-			printf("%02x ", (unsigned char)argv[2][i]);
-		printf("\n");
-
 		i = 0;
 		s_pid = ft_atoi(argv[1]);
-		while (argv[2][i])
+		if (!pid_is_digit(argv[1]) || s_pid == -1 || s_pid == -1)
 		{
-			ft_encrypt(s_pid, argv[2][i]);
-			i++;
+			ft_putstr_fd("Invalid Pid.\n", STDERR_FILENO);
+			return (EXIT_FAILURE);
 		}
+		while (argv[2][i])
+			ft_encrypt(s_pid, argv[2][i++]);
 		ft_encrypt(s_pid, argv[2][i]);
 	}
 	return (EXIT_SUCCESS);

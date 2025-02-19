@@ -61,11 +61,13 @@ int	main(int argc, char *argv[])
 	{
 		i = 0;
 		s_pid = ft_atoi(argv[1]);
-		while (argv[2][i])
+		if (!pid_is_digit(argv[1]) || s_pid == -1 || s_pid == 0)
 		{
-			ft_encrypt(s_pid, argv[2][i]);
-			i++;
+			ft_putstr_fd("Invalid Pid.\n", 1);
+			return (EXIT_FAILURE);
 		}
+		while (argv[2][i])
+			ft_encrypt(s_pid, argv[2][i++]);
 		ft_encrypt(s_pid, argv[2][i]);
 	}
 	return (EXIT_SUCCESS);

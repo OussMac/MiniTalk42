@@ -33,7 +33,10 @@ void	ft_decrypt(int signum, siginfo_t *info, void *context)
 	if (i == 8)
 	{
 		if (c == '\0')
+		{
 			write(STDOUT_FILENO, "\n", 1);
+			kill(info->si_pid, SIGUSR2);
+		}
 		else
 			write(STDOUT_FILENO, &c, 1);
 		c = 0;

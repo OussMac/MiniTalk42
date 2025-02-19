@@ -80,3 +80,17 @@ long	ft_atoi(const char *str)
 	}
 	return (pow * s);
 }
+
+bool	pid_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(!(str[i] >= '0' && str[i] <= '9'))
+			return (false);
+		i++;
+	}
+	return (true);
+}
