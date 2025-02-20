@@ -81,16 +81,13 @@ long	ft_atoi(const char *str)
 	return (pow * s);
 }
 
-bool	pid_is_digit(char *str)
+void	ft_bzero(void *s, size_t n)
 {
-	int	i;
-
-	i = 0;
-	while(str[i])
-	{
-		if(!(str[i] >= '0' && str[i] <= '9'))
-			return (false);
-		i++;
-	}
-	return (true);
+	size_t			i;
+	unsigned char	*ptr;
+	if (n == 0)
+		return ;
+	ptr = (unsigned char *) s;
+	while (i < n)
+		ptr[i++] = 0;
 }
