@@ -6,7 +6,7 @@
 /*   By: oimzilen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 17:40:28 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/02/17 17:40:31 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:31:48 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void	ft_bzero(void *s, size_t n)
 {
 	size_t			i;
 	unsigned char	*ptr;
+
 	if (n == 0)
 		return ;
+	i = 0;
 	ptr = (unsigned char *) s;
 	while (i < n)
 		ptr[i++] = 0;

@@ -23,8 +23,8 @@ B_S_OBJ = $(B_SRV_SRC:.c=.o)
 B_C_OBJ = $(B_CLNT_SRC:.c=.o)
 
 # bonus outputs (target files)
-B_NAME = server_b
-B_C_NAME = client_b
+B_NAME = server_bonus
+B_C_NAME = client_bonus
 
 # ------------------------------------------------------------------- #
 
@@ -46,6 +46,9 @@ $(B_NAME): $(B_S_OBJ)
 $(B_C_NAME): $(B_C_OBJ) 
 	$(CC) $^ -o $@
 # ------------- bonus rules ----------------------#
+
+%.o: %.c $(HEADER)
+	$(CC) -c $< -o $@
 
 %.o: %.c $(HEADER)
 	$(CC) -c $< -o $@

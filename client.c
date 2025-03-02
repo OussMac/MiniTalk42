@@ -6,7 +6,7 @@
 /*   By: oimzilen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 17:38:42 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/02/17 17:56:22 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:27:25 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ bool	pid_is_digit(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(!(str[i] >= '0' && str[i] <= '9'))
+		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (false);
 		i++;
 	}
